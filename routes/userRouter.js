@@ -9,7 +9,7 @@ userRouter.use(cookieParser())
 
 userRouter.get("/signup", (req, res) => {
 
-    res.render('signup',{navs:['home', 'login']})
+    res.render('signup',{navs:[, 'login']})
 });
 userRouter.post("/signup", middlewear.validateCreateUser, async (req, res) => {
     try {
@@ -30,7 +30,7 @@ userRouter.post("/signup", middlewear.validateCreateUser, async (req, res) => {
 
 userRouter.get("/login", (req, res) => {
 
-    res.render('login',{navs:['home', 'signup']})
+    res.render('login',{navs:[ 'signup']})
 });
 
 userRouter.post("/login", middlewear.validateLogin, async (req, res) => {
