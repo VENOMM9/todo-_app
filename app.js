@@ -43,9 +43,9 @@ app.use(express.static( path.join(__dirname,'/public')));
 // app.post("/login", login)
 
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
 
-    res.render('home', { navs: ['create-task', 'signup'] })
+    res.render('home', { navs: [ 'login', 'signup'] })
 });
 
 
