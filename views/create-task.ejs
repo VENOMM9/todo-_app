@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>createtasks</title>
+    <link rel="stylesheet" href="/createtask.css">
+</head>
+<body>
+    <header><%- include('./partials/header'); %></header>
+    <form action="/tasks/create"  method="post">
+        <label for="name">Create Task:</label>
+        <input type="text" id="name" name="name"> 
+        <button type="submit">Submit</button>
+    </form>
+    
+</body>
+</html>

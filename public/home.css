@@ -1,0 +1,23 @@
+body {
+    font-family: vertica;
+    background-color: #5b5d5f;
+    margin: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background-color: #353537;
+    border-radius: 5px;
+    box-shadow: 50px 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    width: 100%;
+    color:white;
+
+    text-align: center;
+    padding-right: 30px;
+    line-height: 40px;
+    height: 90vh;
+}

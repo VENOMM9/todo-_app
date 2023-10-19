@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/dashboard.css" />
+  </head>
+  <body>
+    <header><%- include('./partials/header'); %></header>
+    <div class="container"><main>
+      <table>
+        <tr>
+          <td>TASKS</td>
+          <td>STATE</td>
+          <td>DELETE</td>
+        </tr>
+        <%tasks.forEach(task =>{%> <%if(task.state == "pending"){%>
+        <tr>
+          <td><%=task.name%></td>
+          <td>
+            <form action="/tasks/<%=task._id%>" method="post">
+              <select name="pending" id="pending"><option value="pending"> pending</option></select>
+              <select name="completed" id="completed"><option value="completed"> completed</option></select>
+
+              <button
+                id="state"
+                type="submit"
+                formmethod="post"
+                title="click to switch to completed"
+                style="background-color: darkgray"
+              >
+                Pending
+              </button>
+            </form>
+          </td>
+          <td>
+            <form action="/tasks/<%=task._id%>" method="delete">
+              <button
+                id="delete"
+                type="submit"
+                formmethod="post"
+                title="deleteTask"
+              >
+                DELETE
+              </button>
+            </form>
+          </td>
+        </tr>
+        <%} else {%>
+        <tr>
+          <td><%=task.name%></td>
+          <td>
+            <form action="/tasks/<%=task._id%>" method="post">
+              <input id="stateInput" type="text" name="state" value="pending" />
+
+              <button
+                id="state"
+                type="submit"
+                formmethod="post"
+                title="click to switch to pending"
+                style="background-color: darkgray"
+                value="pending"
+              >
+                completed
+              </button>
+            </form>
+          </td>
+          <td>
+            <form action="/tasks/<%=task._id%>" method="post">
+              <button
+                id="delete"
+                type="submit"
+                formmethod="post"
+                title="deleteTask"
+              >
+                DELETE
+              </button>
+            </form>
+          </td>
+        </tr>
+        <%}%> <%})%>
+      </table>
+    </main></div>
+  </body>
+</html>
