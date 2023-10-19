@@ -9,7 +9,7 @@ userRouter.use(cookieParser())
 
 userRouter.get("/signup", (req, res) => {
 
-    res.render('signup',{navs:[, 'login']})
+    res.render('signup',{navs:[ 'login']})
 });
 userRouter.post("/signup", middlewear.validateCreateUser, async (req, res) => {
     try {

@@ -16,8 +16,6 @@ const taskModel = require("./models/tasks");
 const cookieParser = require("cookie-parser");
 
 
-
-
 const PORT = process.env.PORT || 5150
 const app = express()
 
@@ -47,13 +45,6 @@ app.get('/', (req, res) => {
 
     res.render('home', { navs: [ 'login', 'signup'] })
 });
-
-
-
-
-
-
-
 
 
 
@@ -110,18 +101,6 @@ app.get("/userNotFound", (req, res) => {
 
     res.render('userNotFound',{navs:['login','signup']})
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
