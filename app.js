@@ -67,7 +67,7 @@ app.get("/logout", (req, res) => {
 app.get("/tasks", (req, res) => {
 
    
-    res.render("tasks", { navs: ['home','dashboard', 'create-task',  'logout'] })
+    res.render("tasks", { navs: ['dashboard', 'create-task',  'logout'] })
 });
 
 
@@ -86,7 +86,7 @@ app.get("/dashboard", auth.authenticateUser, async (req, res) => {
 
 app.get("/create-task", (req, res) => {
 
-    res.render('create-task', { navs: ['home', 'logout'] })
+    res.render('create-task', { navs: ['signup', 'logout'] })
 });
 
 
@@ -94,21 +94,21 @@ app.get("/create-task", (req, res) => {
 
 app.get("/existingUser", (req, res) => {
 
-    res.render('existingUser',{navs:['home', 'login', 'signup']})
+    res.render('existingUser',{navs:[ 'login', 'signup']})
 });
 
 
 
 app.get("/invalidInfo", (req, res) => {
 
-    res.render('invalidInfo',{navs:['home', 'signup']})
+    res.render('invalidInfo',{navs:[ 'login','signup']})
 });
 
 
 
 app.get("/userNotFound", (req, res) => {
 
-    res.render('userNotFound',{navs:['signup']})
+    res.render('userNotFound',{navs:['login','signup']})
 });
 
 
