@@ -1,70 +1,97 @@
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+body, h1, h2, p {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-
-table {
-    border-spacing: 20px;
-    align-items: center;
-    justify-content: center;
+  }
+  
+  /* Basic styling for the whole dashboard */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: 70px;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  header a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  header a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Styling for the task table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
   }
 
-.container{
-    /* background-color: #fff; */
-    border-radius: 5px;
-    padding: 0px;
-    width: 50%;
+  .update{
+    text-decoration: none;
+    color: rgb(63, 37, 24)
+  }
+
+ 
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .welcome{
     text-align: center;
-    /* padding-right: 30px; */
-    margin-top: 50px;
-    border: 5px solid #f4f4f4;
-    height: 100vh;
-}
-button {
-    background-color: #645a58;
-    color: #f9f8f6;
+    color:#4c4848;
+    margin:9px;
+
+  }
+  
+  /* Button styles */
+  button {
+    padding: 5px 10px;
     border: none;
-   
-    border-radius: 3px;
+    background-color: #bd3939;
+    color: #ddd8d8;
     cursor: pointer;
     transition: background-color 0.3s;
-    padding-top: 3px;
-}
-
-input{
-    padding-top:0.5rem;
-    padding-bottom: 0.5rem;
-    margin-top: 0.5em;
-    margin-bottom:0.5em;
-
-
-}
-button:hover {
-    background-color: #a4b6c9;
-}
-.delete{
-    padding-left: 0.5rem;
-}
-
-
-@media only screen and (max-width: 416px) {
-.container{
-    /* background-color: #fff; */
-    border-radius: 5px;
-    padding: 0px;
-    width: 50%;
-    text-align: center;
-    /* padding-right: 30px; */
-    margin-top: 50px;
-    border: 5px solid #f4f4f4;
-    height: 100vh;
-}
-}
+  }
+  
+  button:hover {
+    background-color: #555;
+  }
+  
+  /* Form styling for buttons */
+  form {
+    display: inline;
+    margin: 0;
+  }
+  
+  button[type="submit"] {
+    background-color: rgb(120, 59, 59);
+    border: none;
+    color: white;
+  }
+  

@@ -8,79 +8,34 @@
   </head>
   <body>
     <header><%- include('./partials/header'); %></header>
-    <div class="container"><main>
-      <table>
-        <tr>
-          <td>TASKS</td>
-          <td>STATE</td>
-          <td>DELETE</td>
-        </tr>
-        <%tasks.forEach(task =>{%> <%if(task.state == "pending"){%>
-        <tr>
-          <td><%=task.name%></td>
-          <td>
-            <form action="/tasks/<%=task._id%>" method="post">
-              <select name="pending" id="pending"><option value="pending"> pending</option></select>
-              <select name="completed" id="completed"><option value="completed"> completed</option></select>
+    <div class="container">
+      <main>
+        <h1 class="welcome">welcome <%= user.name %> to lemon</h1>
+        <table>
+          <tr>
+            <td>TASKS</td>
+            <td>STATE</td>
+            <td>DELETE</td>
+          </tr>
+          <% tasks.forEach(task => { %>
+            <tr>
+              <td><%= task.name %></td>
+              <td><%= task.state %></td>
 
-              <button
-                id="state"
-                type="submit"
-                formmethod="post"
-                title="click to switch to completed"
-                style="background-color: darkgray"
-              >
-                Pending
-              </button>
-            </form>
-          </td>
-          <td>
-            <form action="/tasks/<%=task._id%>" method="delete">
-              <button
-                id="delete"
-                type="submit"
-                formmethod="post"
-                title="deleteTask"
-              >
-                DELETE
-              </button>
-            </form>
-          </td>
-        </tr>
-        <%} else {%>
-        <tr>
-          <td><%=task.name%></td>
-          <td>
-            <form action="/tasks/<%=task._id%>" method="post">
-              <input id="stateInput" type="text" name="state" value="pending" />
-
-              <button
-                id="state"
-                type="submit"
-                formmethod="post"
-                title="click to switch to pending"
-                style="background-color: darkgray"
-                value="pending"
-              >
-                completed
-              </button>
-            </form>
-          </td>
-          <td>
-            <form action="/tasks/<%=task._id%>" method="post">
-              <button
-                id="delete"
-                type="submit"
-                formmethod="post"
-                title="deleteTask"
-              >
-                DELETE
-              </button>
-            </form>
-          </td>
-        </tr>
-        <%}%> <%})%>
-      </table>
-    </main></div>
+              <td>
+              </div>
+              <a class="update" href="/update/<%= task._id %>">Update</a>
+              <div>
+              </td>
+              <td>
+                <form action="/tasks/<%= task._id %>/delete" method="post">
+                  <button class="delete" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </table>
+      </main>
+    </div>
   </body>
 </html>

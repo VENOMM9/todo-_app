@@ -64,15 +64,50 @@ app.get("/tasks", (req, res) => {
 
 app.get("/dashboard", auth.authenticateUser, async (req, res) => {
     try {
-        console.log(req.user_id)
-        const tasks = await taskModel.find({ user_id: req.user_id })
+        
+        
+        
+        const tasks = await taskModel.find({ user_id: req.params.user_id })
+        const users = await userModel.find({ user_id: req.params.user_id })
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const user = {
+            name: users[0].name
+        }
         console.log(tasks)
-        res.status(200).render('dashboard', { navs: ['create-task', 'logout'], user: req.user_id, tasks, date: new Date() });
+        res.status(200).render('dashboard', { navs: ['create-task', 'logout'], user: req.user_id, tasks, user, date: new Date() });
+        
     } catch(err) {
        return res.json(err)
     }
 })
    
+// app.get('/users/dashboard.css', (req, res) => {
+//     res.type('text/css'); // Set the content type to CSS
+//     res.sendFile(path.join(__dirname, 'public/dashboard.css'));
+// });
+
+app.get('/update/:_id', async (req, res) => {
+    try {
+        // Retrieve the task  by ID
+        const taskId = req.params._id;
+        const task = await taskModel.findById(taskId);
+
+        if (!task) {
+            return res.status(404).json({ message: 'task post not found' });
+        }
+
+        // Render the updatetask.ejs template with the task data
+        res.render('updatetask', { task });
+
+    } catch (error) {
+        // console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 
 app.get("/create-task", (req, res) => {

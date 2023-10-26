@@ -1,7 +1,8 @@
 const express = require("express");
 const controller = require("../controllers/controller")
 const middlewear = require("../middlewear/middlewear")
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+const taskModel = require("../models/tasks");
 
 const userRouter = express.Router();
 userRouter.use(cookieParser())
@@ -38,10 +39,11 @@ userRouter.post("/login", middlewear.validateLogin, async (req, res) => {
     try {
         const { email, password } = req.body
         const response = await controller.login({ email, password })
+        const tasks = await taskModel.find({ user_id: req.params.user_id })
         if (response.code == 201) {
-            res.locals.user = response.user
+            const user = response.user
             res.cookie("jwt", response.token, { httpOnly: true }, { maxAge: 60 * 60 * 1000 })
-            res.redirect("/dashboard",)
+            res.render("dashboard",  { navs: ['create-task', 'logout'], user: req.user_id, tasks, user, date: new Date() })
         }
         else if (response.code == 404) {
             res.redirect("/userNotFound")

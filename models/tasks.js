@@ -12,7 +12,7 @@ const taskSchema = new schema({
      default: shortid.generate
     },
     name: { type: String, required: true },
-    state:{ type: String, required: false, enum : ['pending','completed'],
+    state:{ type: String,  default: 'pending'
     },
     user_id:{type:mongoose.Schema.Types.String,
         ref:"users"
