@@ -37,7 +37,7 @@ cd todo-app
 
 4. Start the application:
  npm start
-5. Access the application in your browser at `http://localhost:3000`.
+5. Access the application in your browser at `(https://lemon-a72u.onrender.com/)`.
 
 ## Project Structure
 The project has the following directory structure:
