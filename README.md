@@ -8,7 +8,6 @@ This is a simple todo web application built with Node.js, Express, and MongoDB. 
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
