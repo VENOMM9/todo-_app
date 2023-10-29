@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
+
+
+
 const createUser = async ({ name, password, email, sex, country }) => {
   // const createUserProfile = {name, password, email}
 
@@ -43,6 +46,10 @@ const createUser = async ({ name, password, email, sex, country }) => {
   };
 };
 
+
+
+
+
 const createTask = async (req, res) => {
   try {
     const { name } = req.body;
@@ -74,6 +81,8 @@ const createTask = async (req, res) => {
   }
 };
 
+
+
 const getAllTask = async (req, res) => {
   try {
     const allTasks = await taskModel.find({});
@@ -84,6 +93,8 @@ const getAllTask = async (req, res) => {
     res.status(400);
   }
 };
+
+
 
 const getOneTask = async (req, res) => {
   try {
@@ -98,6 +109,8 @@ const getOneTask = async (req, res) => {
     res.status(400);
   }
 };
+
+
 const deleteOneTask = async (req, res) => {
   try {
     const taskId = req.params._id;
