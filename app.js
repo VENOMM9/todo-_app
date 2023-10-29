@@ -64,26 +64,17 @@ app.get("/tasks", (req, res) => {
 
 app.get("/dashboard", auth.authenticateUser, async (req, res) => {
     try {
-        
-        
-        
-        const tasks = await taskModel.find({ user_id: req.params.user_id })
-        const users = await userModel.find({ user_id: req.params.user_id })
+        // Retrieve the user's tasks based on user_id
+        const user_id = req.user_id
+        const user = req.user
 
-        if (users.length === 0) {
-            return res.status(404).json({ message: "User not found" });
-        }
+       const tasks = await taskModel.find({user_id: user_id})
 
-        const user = {
-            name: users[0].name
-        }
-        console.log(tasks)
-        res.status(200).render('dashboard', { navs: ['create-task', 'logout'], user: req.user_id, tasks, user, date: new Date() });
-        
+        res.status(200).render('dashboard', { navs: ['create-task', 'logout'], user_id, user, tasks, date: new Date() });
     } catch(err) {
-       return res.json(err)
+        return res.json(err);
     }
-})
+});
    
 // app.get('/users/dashboard.css', (req, res) => {
 //     res.type('text/css'); // Set the content type to CSS

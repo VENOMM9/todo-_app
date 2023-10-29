@@ -4,6 +4,8 @@ const middlewear = require("../middlewear/middlewear")
 const cookieParser = require("cookie-parser")
 const auth = require("../globalmmiddlewear/auth")
 const taskModel = require("../models/tasks");
+const userModel = require("../models/users");
+
 
 
 const taskRouter = express.Router();
@@ -12,26 +14,8 @@ taskRouter.use(cookieParser())
 
 
 
-taskRouter.post("/create", middlewear.validateTask, async (req, res) => {
-    try {
-        const { name } = req.body
-        const user_id = req.params.user_id
-        const tasks = await taskModel.find({ user_id: user_id})
-        console.log(tasks)
-
-        const response = await controller.createTask({ name, user_id })
-        if (response.code == 201) {
-            res.status(200).redirect('/dashboard');
-        }
-
-        else {
-            res.redirect('/invalidInfo')
-    
-        }
-    } catch (error) {
-        console.log(error)
-    }
-})
+taskRouter.post("/create", auth.authenticateUser, controller.createTask
+);
 
 taskRouter.post('/update/:_id', async (req, res) => {
     try {
@@ -67,7 +51,7 @@ taskRouter.post('/:_id/delete', async (req, res) => {
         // Extract the blog post ID from the request parameters
         const taskId = req.params._id;
 
-        // Delete the blog post from the database
+        // Delete the blog post from the database 
         const deletedtaskPost = await taskModel.findByIdAndDelete(taskId);
 
         if (!deletedtaskPost) {
