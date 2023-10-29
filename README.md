@@ -26,7 +26,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Getting Started
 1. Clone the repository:
- git clone https://github.com/yourusername/todo-app.git
+ git clone https://github.com/VENOMM9/todo-app.git
 cd todo-app
 2. Install dependencies:
  npm install
