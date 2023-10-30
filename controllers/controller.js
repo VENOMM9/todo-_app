@@ -4,51 +4,38 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
-
-
-
-const createUser = async ({ name, password, email, sex, country }) => {
+const createUser = async (req, res) => {
   // const createUserProfile = {name, password, email}
+  const { name, email, password, sex, country } = req.body;
 
-  const existingUser = await userModel.findOne({
-    email: email,
-  });
+  try {
+    const existingUser = await userModel.findOne({
+      email: email,
+    });
 
-  console.log(existingUser);
-  if (existingUser) {
-    return {
-      message: "user created already",
-      code: 409,
-    };
+    if (existingUser) {
+      res.redirect("/existingUser");
+    }
+
+    const user = await userModel.create({
+      name: name,
+      email: email,
+      password: password,
+      sex: sex,
+      country: country,
+    });
+
+    const JWT_SECRET = process.env.JWT_SECRET;
+    const token = await jwt.sign(
+      { email: user.email, _id: user._id },
+      JWT_SECRET
+    );
+
+    res.redirect("/login");
+  } catch (error) {
+    console.log(error);
   }
-
-  const user = await userModel.create({
-    name: name,
-    email: email,
-    password: password,
-    sex: sex,
-    country: country,
-  });
-
-  const JWT_SECRET = process.env.JWT_SECRET;
-  const token = await jwt.sign(
-    { email: user.email, _id: user._id },
-    JWT_SECRET
-  );
-  console.log(token);
-
-  console.log(user);
-
-  return {
-    message: "user created successfully",
-    code: 200,
-    token,
-  };
 };
-
-
-
-
 
 const createTask = async (req, res) => {
   try {
@@ -73,15 +60,11 @@ const createTask = async (req, res) => {
       user_id: user_id,
     });
 
-    
-
     res.status(200).redirect("/dashboard");
   } catch (error) {
     console.log(error);
   }
 };
-
-
 
 const getAllTask = async (req, res) => {
   try {
@@ -93,8 +76,6 @@ const getAllTask = async (req, res) => {
     res.status(400);
   }
 };
-
-
 
 const getOneTask = async (req, res) => {
   try {
@@ -110,44 +91,48 @@ const getOneTask = async (req, res) => {
   }
 };
 
-
 const deleteOneTask = async (req, res) => {
   try {
+    // Extract the blog post ID from the request parameters
     const taskId = req.params._id;
-    console.log(taskId);
-    const oneTask = await taskModel.findOneAndDelete(taskId);
-    if (!taskId) {
-      return res.status(404).json({ msg: `No task with id: ${taskId}` });
-    }
 
-    res.status(200).send(oneTask);
-    console.log("task successfully deleted");
+    // Delete the blog post from the database
+    const deletedtaskPost = await taskModel.findByIdAndDelete(taskId);
+
+    if (!deletedtaskPost) {
+      return res.status(404).json({ message: "task not found" });
+    }
+    res.redirect("/dashboard");
   } catch (error) {
-    console.log(error);
-    res.status(400);
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 const updateOneTask = async (req, res) => {
   try {
+    // Extract the task  ID from the request parameters
     const taskId = req.params._id;
-    const updatedItem = req.body;
-    console.log(updatedItem);
 
-    const updatedTask = await taskModel.findByIdAndUpdate(taskId, updatedItem, {
-      new: true,
-      runValidators: true,
-      overwrite: true,
-    });
+    // Retrieve the existing task  from the database
+    const existingTaskPost = await taskModel.findById(taskId);
 
-    if (!updatedTask) {
-      return { message: `No task with id: ${taskId}` };
+    if (!existingTaskPost) {
+      return res.status(404).json({ message: "task not found" });
     }
 
+    // Update the fields of the existing task
+    // You can update state, or other fields
+
+    existingTaskPost.state = req.body.state;
+
+    // Save the updated task post
+    const updatedTaskPost = await existingTaskPost.save();
+
     res.redirect("/dashboard");
-    console.log("task successfully updated");
   } catch (error) {
-    // console.log(error)
-    res.status(400);
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -156,32 +141,25 @@ const login = async (req, res) => {
 
   try {
     const user = await userModel.findOne({
-        email: email,
-        
+      email: email,
     });
     // console.log(user)
     if (!user) {
-      return {
-        message: "This user does not exist",
-        code: 404,
-      };
+      res.redirect("/signup");
+
     }
 
     const validPassword = await user.isValidPassword(password);
     console.log(email);
 
     if (!validPassword) {
-      return {
-        message: "wrong email or password",
-        code: 422,
-      };
+      res.redirect("/userNotFound");
+
     }
 
-    const token = await jwt.sign(
-      { user: user},
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    const token = await jwt.sign({ user: user }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     res.cookie("token", token, { httpOnly: true }, { maxAge: 60 * 60 * 1000 });
     res.status(200).redirect("/create-task");
