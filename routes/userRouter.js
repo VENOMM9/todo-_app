@@ -11,12 +11,16 @@ userRouter.get("/signup", (req, res) => {
   res.render("signup", { navs: ["login"] });
 });
 
-userRouter.post("/signup", middlewear.validateCreateUser, controller.createUser);
+userRouter.post(
+  "/signup",
+  middlewear.validateCreateUser,
+  controller.createUser
+);
 
 userRouter.get("/login", (req, res) => {
   res.render("login", { navs: ["signup"] });
 });
 
-userRouter.post("/login", controller.login);
+userRouter.post("/login", middlewear.validateCreateUser, controller.login);
 
 module.exports = userRouter;

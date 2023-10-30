@@ -131,8 +131,7 @@ const updateOneTask = async (req, res) => {
 
     res.redirect("/dashboard");
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.redirect("/invalidInfo")
   }
 };
 
@@ -146,7 +145,6 @@ const login = async (req, res) => {
     // console.log(user)
     if (!user) {
       res.redirect("/signup");
-
     }
 
     const validPassword = await user.isValidPassword(password);
@@ -154,7 +152,6 @@ const login = async (req, res) => {
 
     if (!validPassword) {
       res.redirect("/userNotFound");
-
     }
 
     const token = await jwt.sign({ user: user }, process.env.JWT_SECRET, {
