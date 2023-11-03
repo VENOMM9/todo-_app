@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 // app.post("/login", login)
 
 app.get("/", (req, res) => {
-  res.render("home", { navs: ["login", "signup"] });
+  res.render("home", { navs: ["Login", "Signup"] });
 });
 
 app.get("/logout", (req, res) => {
@@ -43,7 +43,7 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/tasks", (req, res) => {
-  res.render("tasks", { navs: ["dashboard", "create-task", "logout"] });
+  res.render("tasks", { navs: ["Dashboard", "Create Task", "Logout"] });
 });
 
 app.get("/dashboard", auth.authenticateUser, async (req, res) => {
@@ -55,7 +55,7 @@ app.get("/dashboard", auth.authenticateUser, async (req, res) => {
     const tasks = await taskModel.find({ user_id: user_id });
 
     res.status(200).render("dashboard", {
-      navs: ["create-task", "logout"],
+      navs: ["Create-Task", "Logout"],
       user_id,
       user,
       tasks,
@@ -90,19 +90,19 @@ app.get("/update/:_id", async (req, res) => {
 });
 
 app.get("/create-task", (req, res) => {
-  res.render("create-task", { navs: ["signup", "logout"] });
+  res.render("create-task", { navs: ["Signup", "Logout"] });
 });
 
 app.get("/existingUser", (req, res) => {
-  res.render("existingUser", { navs: ["login", "signup"] });
+  res.render("existingUser", { navs: ["Login", "Signup"] });
 });
 
 app.get("/invalidInfo", (req, res) => {
-  res.render("invalidInfo", { navs: ["login", "signup"] });
+  res.render("invalidInfo", { navs: ["Login", "Signup"] });
 });
 
 app.get("/userNotFound", (req, res) => {
-  res.render("userNotFound", { navs: ["login", "signup"] });
+  res.render("userNotFound", { navs: ["Login", "Signup"] });
 });
 
 app.listen(PORT, () => {

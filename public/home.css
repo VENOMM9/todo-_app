@@ -1,23 +1,58 @@
+/* CSS for all devices */
 body {
-    font-family: vertica;
-    background-color: #5b5d5f;
-    margin: 0;
-    
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
 }
-.container {
-    background-color: #353537;
-    border-radius: 5px;
-    box-shadow: 50px 20px 40px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem;
-    width: 100%;
-    color:white;
 
+header {
+    list-style-type: none;
     text-align: center;
-    padding-right: 30px;
-    line-height: 40px;
-    height: 90vh;
+}
+
+main {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto; /* Centers the container */
+}
+
+main p{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.40em;
+}
+
+
+
+h1 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: rgb(129, 87, 33);
+}
+
+ul {
+    text-align: center;
+    padding-left: 0;
+    list-style-type: none; 
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.10em;
+
+}
+
+li {
+    position: relative;
+    /* padding-left: 30px; */
+}
+
+/* Media query for responsiveness */
+@media only screen and (max-width: 768px) {
+    main {
+        width: 90%;
+    }
 }
