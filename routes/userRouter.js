@@ -8,7 +8,7 @@ const userRouter = express.Router();
 userRouter.use(cookieParser());
 
 userRouter.get("/signup", (req, res) => {
-  res.render("signup", { navs: ["login"] });
+  res.render("signup", { navs: ["Login"] });
 });
 
 userRouter.post(
@@ -18,9 +18,9 @@ userRouter.post(
 );
 
 userRouter.get("/login", (req, res) => {
-  res.render("login", { navs: ["signup"] });
+  res.render("login", { navs: ["Signup"] });
 });
 
-userRouter.post("/login", middlewear.validateCreateUser, controller.login);
+userRouter.post("/login", middlewear.validateLogin, controller.login);
 
 module.exports = userRouter;
